@@ -34,11 +34,9 @@ public class MainActivity extends Activity implements
 
         AuthenticationRequest.Builder builder =
                 new AuthenticationRequest.Builder(CLIENT_ID, AuthenticationResponse.Type.TOKEN, REDIRECT_URI);
-        builder.setScopes(new String[]{"user-read-private", "streaming"});
+        builder.setScopes(new String[]{"user-top-read", "user-read-private", "user-read-email", "user-follow-read", "user-read-birthdate", "streaming"});
         AuthenticationRequest request = builder.build();
-        Log.e("MainActivity", "OpenLoginActivity");
         AuthenticationClient.openLoginActivity(this, REQUEST_CODE, request);
-        Log.e("MainActivity", "DidIT");
     }
 
     @Override
