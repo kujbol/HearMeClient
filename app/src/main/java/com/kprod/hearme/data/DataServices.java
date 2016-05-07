@@ -18,7 +18,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-public final class DataModule {
+public final class DataServices {
   private static final int DISK_CACHE_SIZE =  50 * 1024 * 1024; // 50 Mib
   private static final HttpUrl PRODUCTION_API_URL = new HttpUrl.Builder()
           .scheme("http")

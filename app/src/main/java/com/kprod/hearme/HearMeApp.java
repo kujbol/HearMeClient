@@ -2,7 +2,7 @@ package com.kprod.hearme;
 
 import android.app.Application;
 
-import com.kprod.hearme.data.DataModule;
+import com.kprod.hearme.data.DataServices;
 import com.kprod.hearme.data.api.HearMeService;
 import com.kprod.hearme.data.api.auth.AuthInterceptor;
 import com.kprod.hearme.spotify.auth.AuthService;
@@ -16,6 +16,7 @@ public class HearMeApp extends Application{
     public AuthService authService;
     public Picasso picasso;
     public HearMeService hearMeService;
+
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
 
@@ -27,9 +28,9 @@ public class HearMeApp extends Application{
 
     private void initServices(){
         authService = new AuthService();
-        okHttpClient = DataModule.createOkHttpClient(this, new AuthInterceptor(authService));
-        picasso = DataModule.createPicasso(this, okHttpClient);
-        retrofit = DataModule.createRetrofit(okHttpClient);
+        okHttpClient = DataServices.createOkHttpClient(this, new AuthInterceptor(authService));
+        picasso = DataServices.createPicasso(this, okHttpClient);
+        retrofit = DataServices.createRetrofit(okHttpClient);
         hearMeService = retrofit.create(HearMeService.class);
     }
 }

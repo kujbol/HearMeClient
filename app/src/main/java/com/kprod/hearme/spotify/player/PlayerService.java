@@ -1,7 +1,8 @@
-package com.kprod.hearme.spotify;
+package com.kprod.hearme.spotify.player;
 
 import android.app.Activity;
 
+import com.kprod.hearme.spotify.SpotifyBaseModule;
 import com.kprod.hearme.spotify.auth.AuthService;
 import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.Player;

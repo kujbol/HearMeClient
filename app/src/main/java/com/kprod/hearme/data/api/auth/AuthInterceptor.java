@@ -18,6 +18,7 @@ public final class AuthInterceptor implements Interceptor {
   @Override public Response intercept(Chain chain) throws IOException {
     Request.Builder builder = chain.request().newBuilder();
     builder.header("token", this.authService.getAccessToken());
+    // TODO handle token refresh
     return chain.proceed(builder.build());
   }
 }
