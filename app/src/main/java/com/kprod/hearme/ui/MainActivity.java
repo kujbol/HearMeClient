@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     protected void prepareLayout(int layoutID) {
         setContentView(R.layout.activity_main);
-        ButterKnife.setDebug(true);
         ButterKnife.bind(MainActivity.this);
 
         NavHeaderMainBinding binding = NavHeaderMainBinding.inflate(getLayoutInflater());
