@@ -1,5 +1,6 @@
 package com.kprod.hearme.ui;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -23,6 +24,7 @@ public class NavigationActivity extends AppCompatActivity
         NavHeaderMainBinding binding = NavHeaderMainBinding.inflate(getLayoutInflater());
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.addHeaderView(binding.getRoot());
+        navigationView.setNavigationItemSelectedListener(this);
         binding.setUser(userViewModel);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,6 +51,9 @@ public class NavigationActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
