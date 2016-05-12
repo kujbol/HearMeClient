@@ -85,6 +85,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         drawer.closeDrawer(GravityCompat.START);
+
+        if(item.getItemId() == R.id.nav_share){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
         return true;
     }
 
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavHeaderMainBinding binding = NavHeaderMainBinding.inflate(getLayoutInflater());
         navigationView.addHeaderView(binding.getRoot());
+        navigationView.setNavigationItemSelectedListener(this);
         binding.setUser(userViewModel);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
