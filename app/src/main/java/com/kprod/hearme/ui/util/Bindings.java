@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.kprod.hearme.HearMeApp;
