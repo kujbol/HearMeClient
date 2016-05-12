@@ -43,7 +43,7 @@ public class SettingsViewModel extends Subscriber<Settings> {
 
     @Override
     public void onError(Throwable e) {
-        Log.d("SettingsSubscriber", "Settings completed");
+        Log.e("SettingsSubscriber", "Error on loading settings", e);
     }
 
     @Override

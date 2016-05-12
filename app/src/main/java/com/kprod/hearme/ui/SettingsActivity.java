@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kprod.hearme.HearMeApp;
 import com.kprod.hearme.R;
@@ -29,7 +30,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivitySettingsBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
+        ActivitySettingsBinding binding = DataBindingUtil.setContentView(
+                this, R.layout.activity_settings
+        );
         loadServices();
 
         subscription = hearMeService.getSettings()
@@ -56,6 +59,12 @@ public class SettingsActivity extends AppCompatActivity {
         call.enqueue(new Callback<Settings>() {
             @Override
             public void onResponse(Call<Settings> call, Response<Settings> response) {
+                if (!response.isSuccessful()){
+                    Toast.makeText(
+                            SettingsActivity.this, "Unable to save settings",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
                 Log.d("SettingsActivity", "Settings saved");
             }
 
