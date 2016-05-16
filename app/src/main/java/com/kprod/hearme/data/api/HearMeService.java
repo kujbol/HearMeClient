@@ -3,6 +3,7 @@ package com.kprod.hearme.data.api;
 
 import android.databinding.ObservableField;
 
+import com.kprod.hearme.data.api.model.NextUser;
 import com.kprod.hearme.data.api.model.Settings;
 import com.kprod.hearme.data.api.model.User;
 
@@ -22,4 +23,7 @@ public interface HearMeService {
 
     @POST("settings")
     Call<Settings> postSettings(@Body Settings settings);
+
+    @GET("next_user")
+    Observable<NextUser> getNextUser();
 }
