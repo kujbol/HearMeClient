@@ -54,7 +54,7 @@
                 android:layout_row="0"
                 android:onClick="playSong"
                 android:tag="@{nextUser.energy_track_id}"
-                app:imageUrl="@{nextUser.energy_track_image_url}"
+                app:squareImageUrl="@{nextUser.energy_track_image_url}"
                 app:placeholderDrawable="@{@drawable/progress_animation}"
                 app:placeholderDrawableError="@{@drawable/progress_animation}"
                 tools:src="@drawable/progress_animation" />
@@ -67,7 +67,7 @@
                 android:onClick="playSong"
                 android:src="@drawable/ic_avatar"
                 android:tag="@{nextUser.relax_track_id}"
-                app:imageUrl="@{nextUser.relax_track_image_url}"
+                app:squareImageUrl="@{nextUser.relax_track_image_url}"
                 app:placeholderDrawable="@{@drawable/progress_animation}"
                 app:placeholderDrawableError="@{@drawable/progress_animation}"
                 tools:src="@drawable/progress_animation" />
@@ -80,7 +80,7 @@
                 android:onClick="playSong"
                 android:src="@drawable/ic_avatar"
                 android:tag="@{nextUser.sadness_track_id}"
-                app:imageUrl="@{nextUser.sadness_track_image_url}"
+                app:squareImageUrl="@{nextUser.sadness_track_image_url}"
                 app:placeholderDrawable="@{@drawable/progress_animation}"
                 app:placeholderDrawableError="@{@drawable/progress_animation}"
                 tools:src="@drawable/progress_animation" />
@@ -93,7 +93,7 @@
                 android:onClick="playSong"
                 android:src="@drawable/ic_avatar"
                 android:tag="@{nextUser.top_track_id}"
-                app:imageUrl="@{nextUser.top_track_image_url}"
+                app:squareImageUrl="@{nextUser.top_track_image_url}"
                 app:placeholderDrawable="@{@drawable/progress_animation}"
                 app:placeholderDrawableError="@{@drawable/progress_animation}"
                 tools:src="@drawable/progress_animation" />
@@ -104,14 +104,23 @@
             android:layout_width="match_parent"
             android:layout_height="96dp">
 
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ic_menu_send" />
+
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="64dp"
                 android:layout_height="64dp"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_menu_send" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_margin="16dp"
                 android:src="@drawable/ic_menu_send"
                 android:tint="#FFFFFFFF" />
 

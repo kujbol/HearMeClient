@@ -125,16 +125,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     protected void prepareLayout(int layoutID) {
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding nextUserBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         ButterKnife.bind(MainActivity.this);
+        nextUserBinding.setNextUser(nextUserViewModel);
 
         NavHeaderMainBinding binding = NavHeaderMainBinding.inflate(getLayoutInflater());
         navigationView.addHeaderView(binding.getRoot());
         navigationView.setNavigationItemSelectedListener(this);
         binding.setUser(userViewModel);
-
-        ActivityMainBinding nextUserBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        nextUserBinding.setNextUser(nextUserViewModel);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
