@@ -10,7 +10,7 @@ import rx.Subscriber;
 public class NextUserViewModel extends Subscriber<NextUser> {
 
     public ObservableField<String> profile_image_url;
-    public ObservableField<String> visible_name;
+    public ObservableField<String> dispaly_name;
 
     public ObservableField<String> energy_track_id;
     public ObservableField<String> energy_track_image_url;
@@ -26,7 +26,7 @@ public class NextUserViewModel extends Subscriber<NextUser> {
 
     public NextUserViewModel() {
         this.profile_image_url = new ObservableField<>("");
-        this.visible_name = new ObservableField<>("");
+        this.dispaly_name = new ObservableField<>("");
         this.energy_track_id = new ObservableField<>("");
         this.relax_track_id = new ObservableField<>("");
         this.energy_track_image_url = new ObservableField<>("");
@@ -54,7 +54,7 @@ public class NextUserViewModel extends Subscriber<NextUser> {
 
     private void loadNextUser(NextUser nextUser) {
         profile_image_url.set(nextUser.image_url);
-        visible_name.set(nextUser.visible_name);
+        dispaly_name.set(nextUser.display_name);
 
         energy_track_id.set(nextUser.square.energy.id);
         energy_track_image_url.set(nextUser.square.energy.image_url);

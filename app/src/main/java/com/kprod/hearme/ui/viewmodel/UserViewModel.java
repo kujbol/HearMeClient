@@ -11,21 +11,25 @@ import rx.Subscriber;
 public class UserViewModel extends Subscriber<User>{
     public ObservableField<String> spotifyId;
     public ObservableField<String> imageUrl;
-    public ObservableField<Boolean> isActive;
+    public ObservableField<String> email;
+    public ObservableField<String> dispalyName;
 
-    public UserViewModel(String spotifyId, String imageUrl, Boolean isActive){
+    public UserViewModel(String spotifyId, String imageUrl, String dispalyName, String email){
         this.spotifyId = new ObservableField<>(spotifyId);
         this.imageUrl = new ObservableField<>(imageUrl);
-        this.isActive = new ObservableField<>(isActive);
+        this.dispalyName = new ObservableField<>(dispalyName);
+        this.email = new ObservableField<>(email);
     }
 
     public UserViewModel(){
-        this("username", "", Boolean.FALSE);
+        this("", "", "", "");
     }
 
     public void loadUser(User user){
         this.spotifyId.set(user._id);
         this.imageUrl.set(user.image_url);
+        this.dispalyName.set(user.display_name);
+        this.email.set(user.email);
     }
 
     @Override

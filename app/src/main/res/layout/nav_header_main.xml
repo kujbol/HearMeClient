@@ -33,7 +33,7 @@
             android:layout_height="16dp"
             android:paddingLeft="@dimen/nav_header_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="@{user.spotifyId}"
+            android:text="@{user.dispalyName}"
             />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_height="16dp"
             android:paddingLeft="@dimen/nav_header_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:text="example@email.com"
+            android:text="@{user.email}"
             />
         </LinearLayout>
 </layout>

@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="96dp"
                 android:layout_marginLeft="32dp"
-                android:text="@{nextUser.visible_name}"
+                android:text="@{nextUser.dispaly_name}"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
         </LinearLayout>
 
