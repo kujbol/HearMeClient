@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.kprod.hearme.HearMeApp;
@@ -38,4 +39,23 @@ public class Bindings {
             imageView.setImageDrawable(placeholderDrawableError);
         }
     }
+
+    @BindingAdapter({"squareImageUrl", "placeholderDrawable", "placeholderDrawableError"})
+    public static void loadImageSquare(ImageView imageView, String squareImageUrl,
+                                      Drawable placeholderDrawable,
+                                      Drawable placeholderDrawableError)
+    {
+        if (squareImageUrl != null && !squareImageUrl.equals("")) {
+            int height = ((SquareGridLayout)imageView.getParent()).getHeight() / 2;
+            getPicasso(imageView.getContext()).load(squareImageUrl)
+                    .placeholder(placeholderDrawable)
+                    .centerCrop().resize(height, height)
+                    .error(placeholderDrawableError)
+                    .into(imageView);
+        }
+        else{
+            imageView.setImageDrawable(placeholderDrawableError);
+        }
+    }
+
 }

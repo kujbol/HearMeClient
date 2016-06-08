@@ -5,4 +5,18 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string-array name="genders">
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>english</item>
+        <item>germany</item>
+        <item>french</item>
+        <item>italian</item>
+        <item>polish</item>
+        <item>spanish</item>
+    </string-array>
 </resources>
