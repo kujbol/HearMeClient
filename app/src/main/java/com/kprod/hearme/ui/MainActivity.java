@@ -1,7 +1,9 @@
 package com.kprod.hearme.ui;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +13,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.OrientationEventListener;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.kprod.hearme.HearMeApp;
 import com.kprod.hearme.R;
@@ -44,7 +49,6 @@ import rx.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PlayerNotificationCallback, ConnectionStateCallback {
-
     private AuthService authService;
     private HearMeService hearMeService;
     private Subscription subscription;
@@ -52,12 +56,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NextUserViewModel nextUserViewModel = new NextUserViewModel();
     private Subscription nextUserSubscription;
 
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawer;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.nav_view)
-    NavigationView navigationView;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.animated_logo) ImageView animatedLogo;
+    @BindView(R.id.main_activity_grid)android.support.v7.widget.GridLayout gridLayout;
 
     private Player mPlayer;
 
@@ -69,6 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         loadServices();
 
         authService.authLogin(MainActivity.this);
+
+        if (getResources().getConfiguration().orientation ==  Configuration.ORIENTATION_LANDSCAPE) {
+                gridLayout.setColumnCount(4);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+            gridLayout.setColumnCount(2);
+        }
     }
 
     private void loadServices() {
@@ -92,6 +101,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             mPlayer = PlayerService.getPlayer(authService, this);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            gridLayout.setColumnCount(4);
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            gridLayout.setColumnCount(2);
+        }
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -134,13 +153,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         binding.setUser(userViewModel);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        animatedLogo.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.pulse));
 
     }
 
