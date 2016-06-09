@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    void playSong(View view) {
+   public void playSong(View view) {
         String trackId = (String) view.getTag();
         mPlayer.getPlayerState(playerState -> {
             if (playerState.trackUri.equals("spotify:track:" + trackId)) {

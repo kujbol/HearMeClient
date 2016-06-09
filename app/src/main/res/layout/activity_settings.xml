@@ -83,7 +83,8 @@
                 <android.support.v7.widget.AppCompatSpinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/genders"/>
+                    android:entries="@array/genders"
+                    app:spinner_selection="@{settings.profile_gender}"/>
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
@@ -112,7 +113,8 @@
                 <android.support.v7.widget.AppCompatSpinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/languages"/>
+                    android:entries="@array/languages"
+                    app:spinner_selection="@{settings.profile_languages}"/>
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
@@ -135,7 +137,8 @@
                 <android.support.v7.widget.AppCompatSpinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/genders" />
+                    android:entries="@array/genders"
+                    app:spinner_selection="@{settings.genders}"/>
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
@@ -149,7 +152,8 @@
                 <android.support.v7.widget.AppCompatSpinner
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/languages"/>
+                    android:entries="@array/languages"
+                    app:spinner_selection="@{settings.languages}"/>
             </LinearLayout>
 
         </ScrollView>
