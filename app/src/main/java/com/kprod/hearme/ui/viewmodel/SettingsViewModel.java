@@ -1,5 +1,6 @@
 package com.kprod.hearme.ui.viewmodel;
 
+import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import android.util.Log;
 import android.view.View;
@@ -18,22 +19,22 @@ public class SettingsViewModel extends Subscriber<Settings> {
 
     public ObservableField<Integer> age_range_low;
     public ObservableField<Integer> age_range_top;
-    public ObservableField<List<String>> genders;
+    public ObservableString genders;
     public ObservableField<Boolean> is_in_same_country;
-    public ObservableField<List<String>> languages;
+    public ObservableString languages;
 
-    public ObservableField<String> profile_gender;
-    public ObservableField<List<String>> profile_languages;
+    public ObservableString profile_gender;
+    public ObservableString profile_languages;
 
     public SettingsViewModel() {
         this.age_range_low = new ObservableField<>(20);
         this.age_range_top = new ObservableField<>(30);
-        this.genders = new ObservableField<>(new ArrayList<>(Arrays.asList("female")));
+        this.genders = new ObservableString("female");
         this.is_in_same_country = new ObservableField<>(false);
-        this.languages = new ObservableField<>(new ArrayList<>(Arrays.asList("english")));
+        this.languages = new ObservableString("english");
 
-        this.profile_gender = new ObservableField<>("male");
-        this.profile_languages = new ObservableField<>(new ArrayList<>(Arrays.asList("english")));
+        this.profile_gender = new ObservableString("male");
+        this.profile_languages = new ObservableString("english");
     }
 
     @Override
@@ -54,19 +55,23 @@ public class SettingsViewModel extends Subscriber<Settings> {
     private void loadSettings(Settings settings) {
         this.age_range_low.set(settings.search_preferences.age_range_low);
         this.age_range_top.set(settings.search_preferences.age_range_top);
-        this.genders.set(settings.search_preferences.genders);
+        this.genders.set(settings.search_preferences.genders.get(0));
         this.is_in_same_country.set(settings.search_preferences.is_in_same_country);
-        this.languages.set(settings.search_preferences.languages);
+        this.languages.set(settings.search_preferences.languages.get(0));
 
         this.profile_gender.set(settings.search_settings.gender);
-        this.profile_languages.set(settings.search_settings.languages);
+        this.profile_languages.set(settings.search_settings.languages.get(0));
     }
 
     public Settings getSettings() {
         SearchPreferences searchPreferences = new SearchPreferences(age_range_low.get(),
-                age_range_top.get(), genders.get(), is_in_same_country.get(), languages.get());
-        SearchSettings searchSettings = new SearchSettings(profile_gender.get(), profile_languages.get());
+                age_range_top.get(), stringToArray(genders.get()), is_in_same_country.get(), stringToArray(languages.get()));
+        SearchSettings searchSettings = new SearchSettings(profile_gender.get(), stringToArray(profile_languages.get()));
         return new Settings(searchPreferences, searchSettings);
+    }
 
+    private List<String> stringToArray(String string) {
+        return Arrays.asList(new String[]{string});
     }
 }
+
