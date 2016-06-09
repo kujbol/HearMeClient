@@ -24,6 +24,8 @@ public class NextUserViewModel extends Subscriber<NextUser> {
     public ObservableField<String> top_track_id;
     public ObservableField<String> top_track_image_url;
 
+    public ObservableField<Boolean> is_loading;
+
     public NextUserViewModel() {
         this.profile_image_url = new ObservableField<>("");
         this.dispaly_name = new ObservableField<>("");
@@ -35,6 +37,7 @@ public class NextUserViewModel extends Subscriber<NextUser> {
         this.sadness_track_image_url = new ObservableField<>("");
         this.top_track_id = new ObservableField<>("");
         this.top_track_image_url = new ObservableField<>("");
+        this.is_loading = new ObservableField<>(Boolean.TRUE);
     }
 
     @Override
@@ -50,6 +53,7 @@ public class NextUserViewModel extends Subscriber<NextUser> {
     @Override
     public void onNext(NextUser nextUser) {
         loadNextUser(nextUser);
+        is_loading.set(Boolean.FALSE);
     }
 
     private void loadNextUser(NextUser nextUser) {

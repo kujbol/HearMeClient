@@ -3,8 +3,10 @@ package com.kprod.hearme.ui.util;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.graphics.drawable.Drawable;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.ViewAnimator;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.kprod.hearme.HearMeApp;
@@ -43,19 +45,23 @@ public class Bindings {
     @BindingAdapter({"squareImageUrl", "placeholderDrawable", "placeholderDrawableError"})
     public static void loadImageSquare(ImageView imageView, String squareImageUrl,
                                       Drawable placeholderDrawable,
-                                      Drawable placeholderDrawableError)
-    {
+                                      Drawable placeholderDrawableError) {
         if (squareImageUrl != null && !squareImageUrl.equals("")) {
-            int height = ((SquareGridLayout)imageView.getParent()).getHeight() / 2;
-            getPicasso(imageView.getContext()).load(squareImageUrl)
+                getPicasso(imageView.getContext()).load(squareImageUrl)
                     .placeholder(placeholderDrawable)
-                    .centerCrop().resize(height, height)
                     .error(placeholderDrawableError)
                     .into(imageView);
         }
         else{
             imageView.setImageDrawable(placeholderDrawableError);
         }
+    }
+
+
+    @BindingAdapter({"isLoading"})
+    public static void viewAnimatorHandle(ViewAnimator viewAnimator, Boolean isLoading){
+        if (isLoading == Boolean.FALSE)
+            viewAnimator.showNext();
     }
 
 }
