@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private AuthService authService;
     private Subscription userSubscription;
     private Subscription nextUserSubscription;
-    private Subscription nextUserLikeSubscription;
     private UserViewModel userViewModel = new UserViewModel();
     private NextUserViewModel nextUserViewModel = new NextUserViewModel();
     private HearMeService hearMeService;
