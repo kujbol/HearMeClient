@@ -68,8 +68,10 @@ public class Bindings {
 
     @BindingAdapter({"isLoading"})
     public static void viewAnimatorHandle(ViewAnimator viewAnimator, Boolean isLoading){
+        if (isLoading == Boolean.TRUE)
+            viewAnimator.setDisplayedChild(0);
         if (isLoading == Boolean.FALSE)
-            viewAnimator.showNext();
+            viewAnimator.setDisplayedChild(1);
     }
 
     @BindingAdapter({"spinner_selection"})

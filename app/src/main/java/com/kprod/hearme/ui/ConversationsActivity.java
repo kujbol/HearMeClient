@@ -44,8 +44,6 @@ public class ConversationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         conversationsViewModel = new ConversationsViewModel();
-        conversationsViewModel.conversations.add(new ConversationViewModel(new Conversation("Szymon Stankiewicz", "1193192101", "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/1796434_1094656857233009_3590585128600476928_n.jpg?oh=dfa3435071500ced5bcfb2a19390bc1e&oe=57D57AE7", "whats up")));
-
         loadServices();
 
         subscription = hearMeService.getConversations()
@@ -57,15 +55,6 @@ public class ConversationsActivity extends AppCompatActivity {
         binding.setConversationsViewModel(conversationsViewModel);
         binding.setView(this);
         binding.activityConversationsRecycler.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    public View.OnClickListener onButtonClick() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                conversationsViewModel.addConversation("Szymon Stankiewicz", "1193192101", "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/1796434_1094656857233009_3590585128600476928_n.jpg?oh=dfa3435071500ced5bcfb2a19390bc1e&oe=57D57AE7", "whats up");
-            }
-        };
     }
 
     public ClickHandler<ConversationViewModel> clickHandler() {

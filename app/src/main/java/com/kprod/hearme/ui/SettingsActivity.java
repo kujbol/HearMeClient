@@ -61,8 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
             public void onResponse(Call<Settings> call, Response<Settings> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(
-                            SettingsActivity.this, "Unable to save settings",
-                            Toast.LENGTH_SHORT
+                            SettingsActivity.this, "Unable to save settings", Toast.LENGTH_SHORT
                     ).show();
                 }
                 Log.d("SettingsActivity", "Settings saved");

@@ -1,4 +1,6 @@
-package com.kprod.hearme.data.api.model;
+package com.kprod.hearme.data.api.model.NextUser;
+
+import com.kprod.hearme.data.api.model.Square;
 
 public class NextUser {
     public String _id;
