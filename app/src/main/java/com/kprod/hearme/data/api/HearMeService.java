@@ -1,6 +1,6 @@
 package com.kprod.hearme.data.api;
 
-
+import com.kprod.hearme.data.api.model.Conversations;
 import com.kprod.hearme.data.api.model.NextUser.NextUser;
 import com.kprod.hearme.data.api.model.NextUser.NextUserLike;
 import com.kprod.hearme.data.api.model.NextUser.NextUserLikeResponse;
@@ -30,4 +30,7 @@ public interface HearMeService {
 
     @PATCH("next_user")
     Call<NextUserLikeResponse> patchNextUser(@Body NextUserLike nextUserLike);
+
+    @GET("messages")
+    Observable<Conversations> getConversations();
 }

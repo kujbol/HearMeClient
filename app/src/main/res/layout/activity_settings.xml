@@ -51,6 +51,7 @@
                     android:text="Minimum age" />
 
                 <android.support.v7.widget.AppCompatSeekBar
+                    android:id="@+id/age_range_low"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="99"
@@ -66,6 +67,7 @@
                     android:text="Maximum age" />
 
                 <android.support.v7.widget.AppCompatSeekBar
+                    android:id="@+id/age_range_top"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:max="99"
@@ -81,6 +83,7 @@
                     android:text="Genders" />
 
                 <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/profile_gender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/genders"
@@ -96,6 +99,7 @@
                     android:text="Search range" />
 
                 <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/is_in_same_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Search within the same country"
@@ -111,6 +115,7 @@
                     android:text="Languages" />
 
                 <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/profile_languages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/languages"
@@ -135,6 +140,7 @@
                     android:text="Gender" />
 
                 <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/search_genders"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/genders"
@@ -150,6 +156,7 @@
                     android:text="Languages" />
 
                 <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/search_languages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:entries="@array/languages"
@@ -159,7 +166,7 @@
         </ScrollView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/saveSettingsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
