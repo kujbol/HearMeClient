@@ -3,11 +3,13 @@ package com.kprod.hearme.ui.viewmodel;
 import android.databinding.ObservableField;
 import android.util.Log;
 
-import com.kprod.hearme.data.api.model.NextUser;
+import com.kprod.hearme.data.api.model.NextUser.NextUser;
 
 import rx.Subscriber;
 
-public class NextUserViewModel extends Subscriber<NextUser> {
+public class NextUserViewModel{
+
+    public String _id;
 
     public ObservableField<String> profile_image_url;
     public ObservableField<String> dispaly_name;
@@ -40,23 +42,8 @@ public class NextUserViewModel extends Subscriber<NextUser> {
         this.is_loading = new ObservableField<>(Boolean.TRUE);
     }
 
-    @Override
-    public void onCompleted() {
-        Log.d("NextUserSubscriber", "NextUser completed");
-    }
-
-    @Override
-    public void onError(Throwable e) {
-        Log.e("NextUserSubscriber", "Error on loading nextUser", e);
-    }
-
-    @Override
-    public void onNext(NextUser nextUser) {
-        loadNextUser(nextUser);
-        is_loading.set(Boolean.FALSE);
-    }
-
-    private void loadNextUser(NextUser nextUser) {
+    public void loadNextUser(NextUser nextUser) {
+        _id = nextUser._id;
         profile_image_url.set(nextUser.image_url);
         dispaly_name.set(nextUser.display_name);
 

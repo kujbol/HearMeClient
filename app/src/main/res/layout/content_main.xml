@@ -132,7 +132,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/ic_menu_send" />
+                    android:onClick="rateUser"
+                    android:tag="like"
+                    android:src="@drawable/ic_heart" />
 
                 <View
                     android:layout_width="0dp"
@@ -143,8 +145,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_margin="5dp"
-                    android:src="@drawable/ic_menu_send"
-                    android:tint="#FFFFFFFF" />
+                    android:onClick="rateUser"
+                    android:tag="dislike"
+                    android:src="@drawable/ic_cross" />
 
             </LinearLayout>
 

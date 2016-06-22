@@ -3,7 +3,6 @@ package com.kprod.hearme.ui;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,36 +12,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.kprod.hearme.HearMeApp;
 import com.kprod.hearme.R;
 import com.kprod.hearme.data.api.HearMeService;
-import com.kprod.hearme.data.api.model.User;
+import com.kprod.hearme.data.api.model.NextUser.NextUserLike;
+import com.kprod.hearme.data.api.model.NextUser.NextUserLikeResponse;
 import com.kprod.hearme.databinding.ActivityMainBinding;
-import com.kprod.hearme.databinding.ContentMainBinding;
 import com.kprod.hearme.databinding.NavHeaderMainBinding;
-import com.kprod.hearme.spotify.SpotifyBaseModule;
 import com.kprod.hearme.spotify.auth.AuthService;
 import com.kprod.hearme.spotify.player.PlayerService;
+import com.kprod.hearme.ui.subscribers.NextUserSubscriber;
 import com.kprod.hearme.ui.viewmodel.NextUserViewModel;
 import com.kprod.hearme.ui.viewmodel.UserViewModel;
-import com.spotify.sdk.android.authentication.AuthenticationClient;
-import com.spotify.sdk.android.authentication.AuthenticationResponse;
-import com.spotify.sdk.android.player.Config;
 import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Player;
 import com.spotify.sdk.android.player.PlayerNotificationCallback;
 import com.spotify.sdk.android.player.PlayerState;
 import com.spotify.sdk.android.player.Spotify;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscriber;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -50,11 +47,13 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PlayerNotificationCallback, ConnectionStateCallback {
     private AuthService authService;
-    private HearMeService hearMeService;
-    private Subscription subscription;
+    private Subscription userSubscription;
+    private Subscription nextUserSubscription;
+    private Subscription nextUserLikeSubscription;
     private UserViewModel userViewModel = new UserViewModel();
     private NextUserViewModel nextUserViewModel = new NextUserViewModel();
-    private Subscription nextUserSubscription;
+    private HearMeService hearMeService;
+
 
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -89,15 +88,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (authService.authHandleResponse(requestCode, resultCode, intent)) {
-            subscription = hearMeService.getUser()
+            userSubscription = hearMeService.getUser()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(userViewModel);
 
-            nextUserSubscription = hearMeService.getNextUser()
+            NextUserSubscriber nextUserSubscriber = new NextUserSubscriber(nextUserViewModel);
+            nextUserSubscription = hearMeService.postNextUser()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(nextUserViewModel);
+                    .subscribe(nextUserSubscriber);
 
             mPlayer = PlayerService.getPlayer(authService, this);
         }
@@ -116,8 +116,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onPause() {
         super.onPause();
-        if (subscription != null)
-            subscription.unsubscribe();
+        if (userSubscription != null)
+            userSubscription.unsubscribe();
         if (nextUserSubscription != null)
             nextUserSubscription.unsubscribe();
     }
@@ -177,6 +177,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mPlayer.play("spotify:track:" + trackId);
             }
         });
+    }
+
+    public void rateUser(View view){
+        String rate = (String) view.getTag();
+        NextUserLike nextUserLike = new NextUserLike(nextUserViewModel._id, Boolean.FALSE);
+        if (rate.equals("like"))
+            nextUserLike.like = Boolean.TRUE;
+        else
+            nextUserLike.like = Boolean.FALSE;
+
+        Call<NextUserLikeResponse> call = hearMeService.patchNextUser(nextUserLike);
+        call.enqueue(new Callback<NextUserLikeResponse>() {
+            @Override
+            public void onResponse(Call<NextUserLikeResponse> call, Response<NextUserLikeResponse> response) {
+                Log.d("NextUserLike", "NextUserLike completed");
+                if (!response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Unable to send Request", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    if (nextUserSubscription != null)
+                        nextUserSubscription.unsubscribe();
+                    nextUserViewModel.is_loading.set(Boolean.TRUE);
+                    NextUserSubscriber nextUserSubscriber = new NextUserSubscriber(nextUserViewModel);
+                    nextUserSubscription = hearMeService.postNextUser()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(nextUserSubscriber);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NextUserLikeResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

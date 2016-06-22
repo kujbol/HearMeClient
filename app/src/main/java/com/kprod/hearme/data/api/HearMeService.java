@@ -1,14 +1,15 @@
 package com.kprod.hearme.data.api;
 
 
-import android.databinding.ObservableField;
-
-import com.kprod.hearme.data.api.model.NextUser;
+import com.kprod.hearme.data.api.model.NextUser.NextUser;
+import com.kprod.hearme.data.api.model.NextUser.NextUserLike;
+import com.kprod.hearme.data.api.model.NextUser.NextUserLikeResponse;
 import com.kprod.hearme.data.api.model.Settings;
 import com.kprod.hearme.data.api.model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import rx.Observable;
 
@@ -24,6 +25,9 @@ public interface HearMeService {
     @POST("settings")
     Call<Settings> postSettings(@Body Settings settings);
 
-    @GET("next_user")
-    Observable<NextUser> getNextUser();
+    @POST("next_user")
+    Observable<NextUser> postNextUser();
+
+    @PATCH("next_user")
+    Call<NextUserLikeResponse> patchNextUser(@Body NextUserLike nextUserLike);
 }

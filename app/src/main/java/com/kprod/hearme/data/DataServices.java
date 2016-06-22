@@ -14,6 +14,7 @@ import java.io.File;
 import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -43,8 +44,13 @@ public final class DataServices {
     File cacheDir = new File(app.getCacheDir(), "http");
     Cache cache = new Cache(cacheDir, DISK_CACHE_SIZE);
 
+
+    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
     return new OkHttpClient.Builder()
             .cache(cache)
+            .addInterceptor(loggingInterceptor)
             .addInterceptor(oauthInterceptor)
             .build();
   }
