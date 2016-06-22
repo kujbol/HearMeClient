@@ -138,6 +138,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (item.getItemId() == R.id.nav_share) {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
+        } else if (item.getItemId() == R.id.nav_send) {
+            Intent intent = new Intent(this, ConversationsActivity.class);
+            startActivity(intent);
         }
 
         return true;

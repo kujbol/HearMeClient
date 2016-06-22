@@ -3,9 +3,13 @@ package com.kprod.hearme.data.api;
 
 import android.databinding.ObservableField;
 
+import com.kprod.hearme.data.api.model.Conversation;
+import com.kprod.hearme.data.api.model.Conversations;
 import com.kprod.hearme.data.api.model.NextUser;
 import com.kprod.hearme.data.api.model.Settings;
 import com.kprod.hearme.data.api.model.User;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,4 +30,7 @@ public interface HearMeService {
 
     @GET("next_user")
     Observable<NextUser> getNextUser();
+
+    @GET("messages")
+    Observable<Conversations> getConversations();
 }

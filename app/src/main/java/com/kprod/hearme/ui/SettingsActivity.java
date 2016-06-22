@@ -59,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
         call.enqueue(new Callback<Settings>() {
             @Override
             public void onResponse(Call<Settings> call, Response<Settings> response) {
-                if (!response.isSuccessful()){
+                if (!response.isSuccessful()) {
                     Toast.makeText(
                             SettingsActivity.this, "Unable to save settings",
                             Toast.LENGTH_SHORT
@@ -71,6 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Settings> call, Throwable t) {
                 Log.e("SettingsActivity", "Failed to save settings");
+                Toast.makeText(
+                        SettingsActivity.this, "Unable to save settings",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         });
     }
